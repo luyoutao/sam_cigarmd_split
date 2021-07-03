@@ -69,7 +69,7 @@ Extension:
 
     *) to calculate the average phred scores in matches and mismatches:
     perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ use List::Util "sum" }; @F = split("\t", $_, -1); $phred = $F[9] . $F[21]; $phred =~ s/,//g; @p = map{ ord($_) - 33 } split("", $phred); print $F[0], "\t", $#p > -1 ? sum(@p) / ($#p+1) : ""' > test_avgphred_match.txt
-perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ use List::Util "sum" }; @F = split("\t", $_, -1); $phred = $F[12] . $F[24]; $phred =~ s/,//g; @p = map{ ord($_) - 33 } split("", $phred); print $F[0], "\t", $#p > -1 ? sum(@p) / ($#p+1) : ""' > test_avgphred_mismatch.txt
+    perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ use List::Util "sum" }; @F = split("\t", $_, -1); $phred = $F[12] . $F[24]; $phred =~ s/,//g; @p = map{ ord($_) - 33 } split("", $phred); print $F[0], "\t", $#p > -1 ? sum(@p) / ($#p+1) : ""' > test_avgphred_mismatch.txt
 
     *) to calculate the base composition of mismatched ref.:
     perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ %comp }; @F = split("\t", $_, -1); $x = $F[11] . $F[23]; $x =~ s/,//g; @b = split("", $x); for $n (@b) { $comp{uc($n)}++ }; END{ for $k (sort {$comp{$b} <=> $comp{$a}} keys(%comp)) { print $k, "\t", $comp{$k}} }'
