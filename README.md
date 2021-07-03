@@ -75,6 +75,4 @@ perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ us
     perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -lne 'BEGIN{ %comp }; @F = split("\t", $_, -1); $x = $F[11] . $F[23]; $x =~ s/,//g; @b = split("", $x); for $n (@b) { $comp{uc($n)}++ }; END{ for $k (sort {$comp{$b} <=> $comp{$a}} keys(%comp)) { print $k, "\t", $comp{$k}} }'
 
     *) to calculate the mutation transition probability of the mismatches:
-    perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -ne 'BEGIN{ %comp; print "\t" . join("\t", qw(A C G T)), "
-" }; @F = split("\t", $_, -1); $x = $F[11] . $F[23]; $x =~ s/,//g; $y = $F[10] . $F[22]; $y =~ s/,//g; @b = split("", $x); @m = split("", $y); for $i (0..$#b) { $comp{uc($b[$i])}{uc($m[$i])}++ }; END{ for $r (qw(A C G T)) { print $r; for $c (qw(A C G T)) { print "\t", $comp{$r}{$c} // 0 }; print "
-" } }'
+    perl sam_cigarmd_split.pl -i test.bam 2> err.log | sed 1d | perl -ne 'BEGIN{ %comp; print "\t" . join("\t", qw(A C G T)), "\n" }; @F = split("\t", $_, -1); $x = $F[11] . $F[23]; $x =~ s/,//g; $y = $F[10] . $F[22]; $y =~ s/,//g; @b = split("", $x); @m = split("", $y); for $i (0..$#b) { $comp{uc($b[$i])}{uc($m[$i])}++ }; END{ for $r (qw(A C G T)) { print $r; for $c (qw(A C G T)) { print "\t", $comp{$r}{$c} // 0 }; print "\n" } }'
