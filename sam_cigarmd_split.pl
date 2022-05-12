@@ -3,7 +3,6 @@
 #' file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #'
 #' Youtao Lu@Kim Lab, 2016-2020
-#' Kim Laboratory Bioinformatics Infrastructure
 
 use warnings;
 use strict;
